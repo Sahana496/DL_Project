@@ -27,7 +27,7 @@ from encoder_model import EncoderModel, DenseModel
 from torchvision import transforms
 import torchvision
 
-def get_dataloader(batch_size,indices):
+def get_dataloader(batch_size,indices,data_dir):
     labeled_scene_index = np.arange(106, 134)
 
     val_sampler = SubsetRandomSampler(indices)
@@ -37,14 +37,15 @@ def get_dataloader(batch_size,indices):
                                                 torchvision.transforms.Normalize((0.5563, 0.6024, 0.6325), (0.3195, 0.3271, 0.3282))    
                                               ])
 
-    image_folder = '../../DL_Project/data'
-    annotation_csv = '../../DL_Project/data/annotation.csv'
+    image_folder = data_dir
+    annotation_csv =  f'{data_dir}/annotation.csv'
     labeled_trainset = LabeledDataset(image_folder=image_folder,
                                       annotation_file=annotation_csv,
                                       scene_index=labeled_scene_index,
                                       transform=transform,
                                       extra_info=True
                                      )
+
     val_loader = torch.utils.data.DataLoader(labeled_trainset, batch_size=batch_size, num_workers=8,pin_memory =True, collate_fn=collate_fn,sampler=val_sampler)
     return val_loader
 
@@ -60,6 +61,7 @@ if __name__ == "__main__":
     parser.add_argument("--n_cpu", type=int, default=0, help="number of cpu threads to use during batch generation")
     parser.add_argument("--img_size", type=int, default=800, help="size of each image dimension")
     parser.add_argument("--checkpoint_model", type=str, help="path to checkpoint model")
+    parser.add_argument("--data_dir", type=str,default='../data',help="path to checkpoint model")
     opt = parser.parse_args()
     os.makedirs("output", exist_ok=True)
 
@@ -68,7 +70,6 @@ if __name__ == "__main__":
     num_views = 6
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    
 
     input_shape = np.array([3,256,304])
     encoder = EncoderModel(input_shape[0]).to(device)
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     darknet_model = Darknet(opt.model_def, img_size=opt.img_size).to(device)
 
     load_model = True
-    load_path='../../22-Team22/_70.pth'
+    load_path=opt.checkpoint_model
 
     if load_model:
         checkpoint = torch.load(load_path,map_location=device)
@@ -93,7 +94,7 @@ if __name__ == "__main__":
         model.eval()
 
     indices = [3024,3140,3400,3500]
-    dataloader = get_dataloader(opt.batch_size,indices)
+    dataloader = get_dataloader(opt.batch_size,indices,opt.data_dir)
     classes = load_classes('./data/coco.names')  # Extracts class labels from file
 
     img_detections = []  # Stores detections for each image index
