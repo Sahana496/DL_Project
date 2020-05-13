@@ -17,6 +17,6 @@ This  project  proposes  a  method  to  reconstructa  semantic  top  view  layou
    ## To train model
    python main.py --model='/path/to/pretrained model' --data_dir='../data' 
    ## To detect objects
-   python detect.py --data_dir='../data'
+   python detect.py --data_dir='../data' --checkpoint_model='/path/to/trained_model/'
    ```
    The model is saved in ./Models folder. Tensorflow logging is saved in runs folder. The output from detect.py is stored in outputs folder.
