@@ -5,16 +5,18 @@ This  project  proposes  a  method  to  reconstructa  semantic  top  view  layou
 ## STEPS:
 1. Place data in data folder
 2. To run the Roadmap layout generation
-    ```cd ./Roadmap
-       python main.py --data_dir='../data' --batch_size=4 --epochs=10 
+    ```
+    cd ./Roadmap
+    python main.py --data_dir='../data' --batch_size=4 --epochs=10 
     ```
    The model is saved in ./Models folder. The images generated from the validation set is stored in TestImages folder. Tensorflow logging is saved in runs folder
     
 3. To run Bounding box detection
-   ``` cd ./BoundingBoxDetection 
-       ## To train model
-       python main.py --model='/path/to/pretrained model' --data_dir='../data' 
-       ## To detect objects
-       python detect.py --data_dir='../data'
+   ``` 
+   cd ./BoundingBoxDetection 
+   ## To train model
+   python main.py --model='/path/to/pretrained model' --data_dir='../data' 
+   ## To detect objects
+   python detect.py --data_dir='../data'
    ```
    The model is saved in ./Models folder. Tensorflow logging is saved in runs folder. The output from detect.py is stored in outputs folder.
