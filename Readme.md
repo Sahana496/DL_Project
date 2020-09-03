@@ -1,5 +1,8 @@
 # Deep Learning Project - Team 22
-This  project  proposes  a  method  to  reconstructa  semantic  top  view  layout  of  an  autonomous driving  scene,  given  six  different  surrounding images captured from the driving platform. The objective can be split into two tasks: to generate the road map layout and to detect other objects like  cars,  trucks,  pedestrians,  etc  in  the  scene. The road map layout is generated using a vanilla autoencoder  and  the  objects  in  the  scene  are detected using a modified YOLOv3 architecture for oriented objects. We obtained an accuracy of 0.77 for the road map layout task and an accuracy of 0.016 for the object detection task.
+
+This  project  proposes  a  method  to  reconstruct a  semantic  top  view  layout  of  an  autonomous driving  scene,  given  six  different  surrounding images captured from the driving platform. The objective can be split into two tasks: to generate the road map layout and to detect other objects like  cars,  trucks,  pedestrians,  etc  in  the  scene. The road map layout is generated using a vanilla autoencoder  and  the  objects  in  the  scene  are detected using a modified YOLOv3 architecture for oriented objects. We obtained an accuracy of 0.77 for the road map layout task and an accuracy of 0.016 for the object detection task.
+
+Link to complete report: https://drive.google.com/file/d/1E7xHqDf29NKyXOoGjFgUynLcqhnaIREQ/view?usp=sharing
 
 
 ## STEPS:
